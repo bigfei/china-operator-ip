@@ -11,6 +11,8 @@ env:
   - BGPTOOLS_VERSION=0.0.3
 before_script:
   - go get github.com/zhanhb/cidr-merger
+  - export
+  - cidr-merger -v
   - bgptools --version | grep -F $BGPTOOLS_VERSION || cargo install --vers $BGPTOOLS_VERSION bgptools
   - export PATH=$PATH:$HOME/.cargo/bin:$HOME/go/bin
 script:

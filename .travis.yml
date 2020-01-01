@@ -10,13 +10,18 @@ language: rust
 cache:
   cargo: true
   directories:
-    - /home/travis/gopath/bin
+    - /home/travis/go/bin
 env:
   global:
   - BGPTOOLS_VERSION=0.0.3
 before_script:
+  - export PATH=$PATH:$HOME/go/bin
+  - curl -sL -o ~/bin/gimme https://raw.githubusercontent.com/travis-ci/gimme/master/gimme
+  - chmod +x ~/bin/gimme
+  - eval "$(gimme stable)"
   - cidr-merger -v || go get github.com/zhanhb/cidr-merger
   - bgptools --version | grep -F $BGPTOOLS_VERSION || cargo install --vers $BGPTOOLS_VERSION bgptools
+  - bgptools --version
 script:
   - ./generate.sh
   - ./stat.sh

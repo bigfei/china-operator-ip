@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-set -ve
 source common.sh
+set -xe
 [[ $SKIP_DATA_PREPARATION != true ]] && prepare_data
 mkdir -p result
 for file in operator/*.conf; do

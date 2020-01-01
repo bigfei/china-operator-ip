@@ -16,12 +16,7 @@ env:
   - BGPTOOLS_VERSION=0.0.3
 install:
   - export PATH=$PATH:$HOME/go/bin
-  - curl -sL -o ~/bin/gimme https://raw.githubusercontent.com/travis-ci/gimme/master/gimme
-  - chmod +x ~/bin/gimme
-  - eval "$(gimme stable)"
-  - cidr-merger -v || go get github.com/zhanhb/cidr-merger
-  - bgptools --version | grep -F $BGPTOOLS_VERSION || cargo install --vers $BGPTOOLS_VERSION bgptools
-  - bgptools --version
+  - ./dependency.sh
 script:
   - ./generate.sh
   - ./stat.sh

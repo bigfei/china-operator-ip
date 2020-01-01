@@ -5,16 +5,16 @@ addons:
       - lftp
       - bgpdump
 language: rust
-cache: cargo
+cache:
+  cargo: true
+  directories:
+    - /home/travis/gopath/bin
 env:
   global:
   - BGPTOOLS_VERSION=0.0.3
 before_script:
-  - go get github.com/zhanhb/cidr-merger
-  - export
-  - cidr-merger -v
+  - cidr-merger -v || go get github.com/zhanhb/cidr-merger
   - bgptools --version | grep -F $BGPTOOLS_VERSION || cargo install --vers $BGPTOOLS_VERSION bgptools
-  - export PATH=$PATH:$HOME/.cargo/bin:$HOME/go/bin
 script:
   - ./generate.sh
   - ./stat.sh

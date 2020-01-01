@@ -1,3 +1,5 @@
+os: linux
+arch: s390x
 dist: bionic
 addons:
   apt:

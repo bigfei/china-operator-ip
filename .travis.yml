@@ -1,4 +1,3 @@
-sudo: required
 dist: bionic
 addons:
   apt:
@@ -6,17 +5,14 @@ addons:
       - lftp
       - bgpdump
 language: rust
-go:
-  - 1.12.x
 cache: cargo
 env:
   global:
   - BGPTOOLS_VERSION=0.0.3
 before_script:
-  - go version
+  - go get github.com/zhanhb/cidr-merger
   - bgptools --version | grep -F $BGPTOOLS_VERSION || cargo install --vers $BGPTOOLS_VERSION bgptools
-  - export PATH=$PATH:/home/travis/.cargo/bin
-  - docker pull yangzhaofengsteven/cidr-merge
+  - export PATH=$PATH:$HOME/.cargo/bin:$HOME/go/bin
 script:
   - ./generate.sh
   - ./stat.sh
